@@ -11,6 +11,7 @@ public class LevelGeneration : MonoBehaviour
     */
 
     [SerializeField] private GameObject[] levelSegments; // Array of level segment prefabs
+    [SerializeField] private GameObject startingSegment;
     [SerializeField] private int levelLength = 5; // Number of segments to spawn  
     [SerializeField] private int maxSpawnedSegments = 7;  
     [SerializeField] private float segmentWidth = 10f;
@@ -19,6 +20,7 @@ public class LevelGeneration : MonoBehaviour
     private int spawnedSegmentCount = 0;
     private Queue<GameObject> activeSegmentsQueue = new Queue<GameObject>();
     private float endingX=0;
+    private GameObject newestSegment;
 
     void Start()
     {
@@ -37,9 +39,17 @@ public class LevelGeneration : MonoBehaviour
 
     public void SpawnNewSegment(int index)
     {
-        int randomIndex = Random.Range(0, levelSegments.Length-1);
-        Vector2 spawnPos = new Vector2(endingX, 0);
-        GameObject newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity, transform);
+        if(spawnedSegmentCount > 0) //Spawn random segments
+        {
+            int randomIndex = Random.Range(0, levelSegments.Length-1);
+            Vector2 spawnPos = new Vector2(endingX, 0);
+            newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity, transform);
+        }
+        else //Ensure the first segment is always the same to stop softlock
+        {
+            Vector2 spawnPos = new Vector2(endingX, 0);
+            newestSegment = Instantiate(startingSegment, spawnPos, Quaternion.identity, transform);
+        }
         activeSegmentsQueue.Enqueue(newestSegment);
         spawnedSegmentCount++;
         //Setting up unity events

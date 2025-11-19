@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Leyton's Scene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/NotAMainMenu.unity
+    guid: 149767c308e334e219d1784b5f9ea6d7
+  - enabled: 1
+    path: Assets/Scenes/Luke's Scene.unity
+    guid: de088b1a6ac5f47b8903c1db80f7ad4d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

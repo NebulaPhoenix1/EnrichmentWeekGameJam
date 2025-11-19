@@ -202,6 +202,27 @@ MonoBehaviour:
   levelLength: 5
   maxSpawnedSegments: 7
   segmentWidth: 10
+--- !u!1 &542724335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8343819037371345132, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
+  m_PrefabInstance: {fileID: 8494347297930945020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &542724344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542724335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fddd137a58f44f7181cea08e73a4384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  boxcastOffset: {x: 0, y: 0}
 --- !u!1 &771472576
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,7 +589,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8821439234710185038, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.21
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8821439234710185038, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
       propertyPath: m_LocalPosition.z
@@ -603,9 +624,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5120351431467975622, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8343819037371345132, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 542724344}
   m_SourcePrefab: {fileID: 100100000, guid: 4e3e4c9f176334b7e90b5e2ce936d891, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
