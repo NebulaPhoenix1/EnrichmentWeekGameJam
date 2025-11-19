@@ -7,6 +7,8 @@ public class Movement : MonoBehaviour
     private Vector2 movementInput;
     private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 2f;
+    public bool grounded;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,4 +23,5 @@ public class Movement : MonoBehaviour
         movementInput = moveAction.ReadValue<Vector2>();
         rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, rb.linearVelocity.y);
     }
+
 }
