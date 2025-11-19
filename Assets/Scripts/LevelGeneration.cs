@@ -50,7 +50,7 @@ public class LevelGeneration : MonoBehaviour
                 ExtendLevel();
             }
         });
-        Debug.Log("Spawned:" + index);
+        //Debug.Log("Spawned:" + index);
         activeSegments.Enqueue(newestSegment);
         endingX += segmentWidth;
     }
