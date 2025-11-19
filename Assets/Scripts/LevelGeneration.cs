@@ -11,12 +11,13 @@ public class LevelGeneration : MonoBehaviour
     */
 
     [SerializeField] private GameObject[] levelSegments; // Array of level segment prefabs
-    [SerializeField] private int levelLength = 5; // Number of segments to spawn    
+    [SerializeField] private int levelLength = 5; // Number of segments to spawn  
+    [SerializeField] private int maxSpawnedSegments = 7;  
     [SerializeField] private float segmentWidth = 10f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int completedSegments = 0;
     private int spawnedSegmentCount = 0;
-    private Queue<GameObject> activeSegments = new Queue<GameObject>();
+    private Queue<GameObject> activeSegmentsQueue = new Queue<GameObject>();
     private float endingX=0;
 
     void Start()
@@ -39,27 +40,25 @@ public class LevelGeneration : MonoBehaviour
         int randomIndex = Random.Range(0, levelSegments.Length-1);
         Vector2 spawnPos = new Vector2(endingX, 0);
         GameObject newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity, transform);
+        activeSegmentsQueue.Enqueue(newestSegment);
         spawnedSegmentCount++;
         //Setting up unity events
         LevelSegment segment = newestSegment.GetComponentInChildren<LevelSegment>();
         segment.SegmentNumber = index;
         segment.SegmentComplete.AddListener(() => {
-            completedSegments++;
-            if(completedSegments >= 2)
-            {
-                ExtendLevel();
-            }
+            ExtendLevel();
         });
         //Debug.Log("Spawned:" + index);
-        activeSegments.Enqueue(newestSegment);
         endingX += segmentWidth;
+        if(activeSegmentsQueue.Count > maxSpawnedSegments)
+        {
+            GameObject oldest = activeSegmentsQueue.Dequeue();
+            Destroy(oldest);
+        }
     }
 
     private void ExtendLevel()
     {
-        //Dequeue and destroy oldest segment
-        GameObject oldestSegment = activeSegments.Dequeue();
-        Destroy(oldestSegment);
         SpawnNewSegment(spawnedSegmentCount);
     }
 
