@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     private InputAction moveAction;
+    private InputAction jumpAction;
     private Vector2 movementInput;
     private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 2f;
@@ -19,6 +20,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         moveAction = InputSystem.actions.FindAction("Move");
+        jumpAction = InputSystem.actions.FindAction("Jump");
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         groundCheck = GetComponent<GroundCheck>();
@@ -45,9 +47,9 @@ public class Movement : MonoBehaviour
         //Horizontal Movement
         rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, rb.linearVelocity.y);
         //Jumping Logic
-        if(groundCheck.CheckIfGrounded() && movementInput.y > 0)
+        if(groundCheck.CheckIfGrounded() && jumpAction.WasPressedThisFrame())
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, movementInput.y * jumpSpeed);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
         }   
     }
 }
