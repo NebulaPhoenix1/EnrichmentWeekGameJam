@@ -1,16 +1,36 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LevelSegment : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool playerInSegment = false;
+    public UnityEvent SegmentComplete;
+    public int SegmentNumber = 0;
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    public bool GetIsPlayerInsideSegment()
     {
-        
+        return playerInSegment;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            playerInSegment = true;
+        }
+    }
+
+    private void OExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            playerInSegment = false;
+            SegmentComplete.Invoke();
+        }
     }
 }

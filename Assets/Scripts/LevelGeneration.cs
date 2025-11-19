@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,6 +16,7 @@ public class LevelGeneration : MonoBehaviour
     private int completedSegments = 0;
     private int currentSegment = 0;
     private Queue<GameObject> activeSegments = new Queue<GameObject>();
+    private float endingX=0;
 
     void Start()
     {
@@ -24,15 +26,9 @@ public class LevelGeneration : MonoBehaviour
 
     private void SpawnLevel()
     {
-        //Spawns each level sequence as a child of the LevelSpawner object (Grid)
-        //We need to calculate how many tiles long each segment is to position them correctly
-        float segmentWidth = levelSegments[0].GetComponentInChildren<Tilemap>().size.x; 
-        for (int i = 0; i < levelLength; i++)
+        for(int i = 0; i < 5; i++)
         {
-            int randomIndex = Random.Range(0, levelSegments.Length);
-            Vector3 spawnPosition = new Vector3(i * segmentWidth, 0, 0);
-            var lastSegment = Instantiate(levelSegments[randomIndex], spawnPosition, Quaternion.identity, transform);
-            activeSegments.Enqueue(lastSegment);
+            SpawnNewSegment(i);
         }
     }
 
@@ -41,18 +37,16 @@ public class LevelGeneration : MonoBehaviour
         currentSegment++;
     }
 
-    public void SpawnNewSegment()
+    public void SpawnNewSegment(int index)
     {
-        //We need a buffer so not the last, the one before that segment gets removed
-        //So, the difference between completed segements and current segment should be 2
-        if(completedSegments - currentSegment == 2)
-        {
-            //Despawn oldest segment
-            GameObject oldestSegment = activeSegments.Dequeue();
-            Destroy(oldestSegment);
-            //Add new segment ensuring to add it to queue
-            
-        }
+        int randomIndex = Random.Range(0, levelSegments.Length);
+        Vector2 spawnPos = new Vector2(endingX, 0);
+        GameObject newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity);
+        Tilemap newestTilemap = newestSegment.transform.Find("PhysicalTileMap").GetComponent<Tilemap>();
+        newestTilemap.CompressBounds();
+        activeSegments.Enqueue(newestSegment);
+        endingX += newestTilemap.localBounds.size.x;
+        Debug.Log(newestTilemap.localBounds.size.x);
     }
 
     // Update is called once per frame
