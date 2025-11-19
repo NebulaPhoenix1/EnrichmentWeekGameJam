@@ -16,7 +16,7 @@ public class LevelGeneration : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int completedSegments = 0;
     private int spawnedSegmentCount = 0;
-    private Queue<GameObject> activeSegments = new Queue<GameObject>();
+    private Queue<GameObject> completedSegmentsQueue = new Queue<GameObject>();
     private float endingX=0;
 
     void Start()
@@ -45,21 +45,26 @@ public class LevelGeneration : MonoBehaviour
         segment.SegmentNumber = index;
         segment.SegmentComplete.AddListener(() => {
             completedSegments++;
+            completedSegmentsQueue.Enqueue(newestSegment);
+            Debug.Log(completedSegmentsQueue.Count);
             if(completedSegments >= 2)
             {
                 ExtendLevel();
             }
         });
         //Debug.Log("Spawned:" + index);
-        activeSegments.Enqueue(newestSegment);
         endingX += segmentWidth;
     }
 
     private void ExtendLevel()
     {
         //Dequeue and destroy oldest segment
-        GameObject oldestSegment = activeSegments.Dequeue();
-        Destroy(oldestSegment);
+        if(completedSegmentsQueue.Count >= 2)
+        {
+            GameObject oldestSegment = completedSegmentsQueue.Dequeue();
+            Debug.Log("Destroying at:" + oldestSegment.transform.position.x + "," + oldestSegment.transform.position.y);
+            Destroy(oldestSegment.gameObject);
+        }
         SpawnNewSegment(spawnedSegmentCount);
     }
 

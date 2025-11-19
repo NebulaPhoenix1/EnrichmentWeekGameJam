@@ -23,7 +23,7 @@ public class ScoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        highscoreText.text = "High Score: " + score + "m";
+        //highscoreText.text = "High Score: " + score + "m";
         if(playerTransform.position.x > score)
         {
             score = (int)playerTransform.position.x;
