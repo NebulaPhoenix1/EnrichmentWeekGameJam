@@ -189,6 +189,7 @@ MonoBehaviour:
   - {fileID: 4896005448527996963, guid: 29ade781936c47940888f842ce1a16c8, type: 3}
   - {fileID: 4896005448527996963, guid: 7b8c81ebad0c3fd4fb6a453f18340948, type: 3}
   levelLength: 5
+  maxSpawnedSegments: 7
   segmentWidth: 10
 --- !u!1 &771472576
 GameObject:
@@ -465,7 +466,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 264}
-  m_SizeDelta: {x: 550, y: 100}
+  m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1396787720
 MonoBehaviour:
@@ -500,7 +501,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'High Score:'
+  m_Text: 'High Score: '
 --- !u!222 &1396787721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -715,7 +716,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 366}
-  m_SizeDelta: {x: 650, y: 150}
+  m_SizeDelta: {x: 700, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131788453
 MonoBehaviour:

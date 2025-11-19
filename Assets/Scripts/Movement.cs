@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     private Vector2 movementInput;
     private Rigidbody2D rb;
     [SerializeField] private float moveSpeed = 2f;
+    [SerializeField] private float moveSpeedGainPerSec = 0.1f;
+    [SerializeField] private float maxMoveSpeed = 10f;
+    private float increaseSpeedTimer = 0f;
     [SerializeField] private float jumpSpeed = 5f;
     private bool grounded = false;
     private Animator playerAnim;
@@ -27,7 +30,18 @@ public class Movement : MonoBehaviour
     {
         //Get move action vector
         movementInput = moveAction.ReadValue<Vector2>();
-        if(movementInput.x > 0) { playerAnim.SetBool("walking", true);}
+        //If moving
+        if(movementInput.x > 0 || movementInput.x < 0) 
+        { 
+            playerAnim.SetBool("walking", true);
+            //Increase speed/sec, to a cap
+            increaseSpeedTimer+=Time.deltaTime;
+            if(increaseSpeedTimer >= 1.0f && moveSpeed < maxMoveSpeed)
+            {
+                increaseSpeedTimer = 0;
+                moveSpeed += moveSpeedGainPerSec;
+            }
+        }
         else if(movementInput.x == 0){ playerAnim.SetBool("walking", false);}
         //Horizontal Movement
         rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, rb.linearVelocity.y);
@@ -36,6 +50,9 @@ public class Movement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, movementInput.y * jumpSpeed);
         }
+
+
+        
     }
 
     public void SetGrounded(bool value)
