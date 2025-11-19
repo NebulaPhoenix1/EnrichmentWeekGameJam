@@ -7,6 +7,8 @@ public class LevelSegment : MonoBehaviour
     public UnityEvent SegmentComplete;
     public int SegmentNumber = 0;
 
+    private bool completed = false;
+
     void Start()
     {
         
@@ -28,8 +30,9 @@ public class LevelSegment : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if(collision.gameObject.CompareTag("Player") && completed == false)
         {
+            completed = true;
             //Debug.Log("player left :(");
             playerInSegment = false;
             SegmentComplete.Invoke();
