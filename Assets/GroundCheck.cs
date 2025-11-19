@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,16 +11,16 @@ public class GroundCheck : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        groundCheckColldier = GetComponent<BoxCollider2D>();       
+        groundCheckColldier = GetComponent<BoxCollider2D>();   
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         Debug.Log("On Ground! (probably)");
         grounded.Invoke();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D other)
     {
         Debug.Log("Off Ground (probably)");
         notGrounded.Invoke();
