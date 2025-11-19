@@ -23,14 +23,17 @@ public class LevelSegment : MonoBehaviour
         {
             playerInSegment = true;
         }
+        //Debug.Log("Enter");
     }
 
-    private void OExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Player"))
         {
+            //Debug.Log("player left :(");
             playerInSegment = false;
             SegmentComplete.Invoke();
         }
+        //Debug.Log("exit");
     }
 }

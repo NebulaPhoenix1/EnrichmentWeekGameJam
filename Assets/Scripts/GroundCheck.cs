@@ -16,13 +16,13 @@ public class GroundCheck : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("On Ground! (probably)");
+        //Debug.Log("On Ground! (probably)");
         grounded.Invoke();
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Off Ground (probably)");
+        //Debug.Log("Off Ground (probably)");
         notGrounded.Invoke();
     }
 }

@@ -12,9 +12,10 @@ public class LevelGeneration : MonoBehaviour
 
     [SerializeField] private GameObject[] levelSegments; // Array of level segment prefabs
     [SerializeField] private int levelLength = 5; // Number of segments to spawn    
+    [SerializeField] private float segmentWidth = 10f;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private int completedSegments = 0;
-    private int currentSegment = 0;
+    private int spawnedSegmentCount = 0;
     private Queue<GameObject> activeSegments = new Queue<GameObject>();
     private float endingX=0;
 
@@ -32,21 +33,34 @@ public class LevelGeneration : MonoBehaviour
         }
     }
 
-    public void IncrementCompletedSegments()
-    {
-        currentSegment++;
-    }
 
     public void SpawnNewSegment(int index)
     {
-        int randomIndex = Random.Range(0, levelSegments.Length);
+        int randomIndex = Random.Range(0, levelSegments.Length-1);
         Vector2 spawnPos = new Vector2(endingX, 0);
-        GameObject newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity);
-        Tilemap newestTilemap = newestSegment.transform.Find("PhysicalTileMap").GetComponent<Tilemap>();
-        newestTilemap.CompressBounds();
+        GameObject newestSegment = Instantiate(levelSegments[randomIndex], spawnPos, Quaternion.identity, transform);
+        spawnedSegmentCount++;
+        //Setting up unity events
+        LevelSegment segment = newestSegment.GetComponentInChildren<LevelSegment>();
+        segment.SegmentNumber = index;
+        segment.SegmentComplete.AddListener(() => {
+            completedSegments++;
+            if(completedSegments >= 2)
+            {
+                ExtendLevel();
+            }
+        });
+        Debug.Log("Spawned:" + index);
         activeSegments.Enqueue(newestSegment);
-        endingX += newestTilemap.localBounds.size.x;
-        Debug.Log(newestTilemap.localBounds.size.x);
+        endingX += segmentWidth;
+    }
+
+    private void ExtendLevel()
+    {
+        //Dequeue and destroy oldest segment
+        GameObject oldestSegment = activeSegments.Dequeue();
+        Destroy(oldestSegment);
+        SpawnNewSegment(spawnedSegmentCount);
     }
 
     // Update is called once per frame
