@@ -181,36 +181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fddd137a58f44f7181cea08e73a4384, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  grounded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 94765402765349521}
-        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
-        m_MethodName: SetGrounded
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-  notGrounded:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 94765402765349521}
-        m_TargetAssemblyTypeName: Movement, Assembly-CSharp
-        m_MethodName: SetGrounded
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  boxcastOffset: {x: 0, y: 0}
+  boxcastSize: {x: 0.1, y: 0.5}
 --- !u!1 &8343819037371345132
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +343,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 8df181ed6d500dd44a543ba0857930b6, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
