@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class DangerWall : MonoBehaviour
 {
+    [Header("Classic Wall Speed Gain")]
     [SerializeField] private float minSpeed = 2f;
     [SerializeField] private float maxSpeed = 12f;
     [SerializeField] private float speedGainPerSec = 0.25f;
@@ -15,12 +16,20 @@ public class DangerWall : MonoBehaviour
     [SerializeField] private InputActionAsset moveActionAsset;
     private InputAction moveAction;
     private bool move = false;
+
+    [Header("Player linked move speed gain")]
+    [SerializeField] private float playerVelocityDifference;
+    private GameObject player;
+    private Rigidbody2D playerRB;
+    [SerializeField] private bool usePlayerLinkedSpeed = true;
     void Start()
     {
         currentSpeed = minSpeed;
         rb = GetComponent<Rigidbody2D>();
         deathMaster = FindFirstObjectByType<DeathHandle>();
         moveAction = moveActionAsset.FindAction("Move");
+        player = GameObject.Find("Player");
+        playerRB = player.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -28,13 +37,27 @@ public class DangerWall : MonoBehaviour
     {
         if(move)
         {
-            currentWait += Time.deltaTime;
-            if(currentWait >= 1f && currentSpeed < maxSpeed)
+            //Classic wall
+            if(!usePlayerLinkedSpeed)
             {
-                currentWait = 0f;
-                currentSpeed+= speedGainPerSec;
-                rb.linearVelocity = new Vector2(currentSpeed, 0f);
-            }       
+                currentWait += Time.deltaTime;
+                if(currentWait >= 1f && currentSpeed < maxSpeed)
+                {
+                    currentWait = 0f;
+                    currentSpeed+= speedGainPerSec;
+                    rb.linearVelocity = new Vector2(currentSpeed, 0f);
+                }           
+            }
+            //Player linked wall
+            else
+            {
+                //Only set velcooty if player is going forward
+                if(playerRB.linearVelocity.x > 0)
+                {
+                    rb.linearVelocity = new Vector2(playerRB.linearVelocity.x - playerVelocityDifference, 0);
+                }
+            }
+            
         }
         else
         {
