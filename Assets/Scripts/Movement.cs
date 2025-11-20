@@ -15,7 +15,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5f;
     private Animator playerAnim;
     private GroundCheck groundCheck;
-
     private AudioController audioController;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,7 +34,7 @@ public class Movement : MonoBehaviour
         //Get move action vector
         movementInput = moveAction.ReadValue<Vector2>();
         //If moving
-        if(movementInput.x > 0 || movementInput.x < 0) 
+        if(movementInput.x > 0 || movementInput.x < 0 && groundCheck.CheckIfGrounded()) 
         { 
             playerAnim.SetBool("walking", true);
             //Increase speed/sec, to a cap
@@ -46,7 +45,7 @@ public class Movement : MonoBehaviour
                 moveSpeed += moveSpeedGainPerSec;
             }
         }
-        else if(movementInput.x == 0){ playerAnim.SetBool("walking", false);}
+        else if(movementInput.x == 0 || !groundCheck.CheckIfGrounded()){ playerAnim.SetBool("walking", false);}
         //Horizontal Movement
         rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, rb.linearVelocity.y);
         //Jumping Logic
@@ -54,6 +53,6 @@ public class Movement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
             audioController.PlayJump();
-        }   
+        }
     }
 }
