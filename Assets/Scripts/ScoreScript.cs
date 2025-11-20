@@ -35,4 +35,9 @@ public class ScoreScript : MonoBehaviour
             }
         }
     }
+
+    public int getScore()
+    {
+        return score;
+    }
 }
