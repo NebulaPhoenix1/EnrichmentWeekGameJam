@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
     [SerializeField] private float jumpSpeed = 5f;
     private Animator playerAnim;
     private GroundCheck groundCheck;
+
+    private AudioController audioController;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,6 +26,7 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
         groundCheck = GetComponent<GroundCheck>();
+        audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -50,6 +53,7 @@ public class Movement : MonoBehaviour
         if(groundCheck.CheckIfGrounded() && jumpAction.WasPressedThisFrame())
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpSpeed);
+            audioController.PlayJump();
         }   
     }
 }

@@ -11,6 +11,8 @@ public class ScoreScript : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text highscoreText;
 
+    private AudioController audioController;
+
     void Start()
     {
         playerTransform = GetComponent<Transform>();
@@ -18,6 +20,7 @@ public class ScoreScript : MonoBehaviour
         Debug.Log("high score:" + highScore);
         scoreText.text = "Score: " + score + "m";
         highscoreText.text = "High Score: " + highScore + "m";
+        audioController = GameObject.Find("AudioController").GetComponent<AudioController>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,7 @@ public class ScoreScript : MonoBehaviour
             {
                 PlayerPrefs.SetInt("HighScore", score);
                 highscoreText.text = "High Score: " + score + "m";
+                audioController.PlayHighscoreSound();
             }
         }
     }
