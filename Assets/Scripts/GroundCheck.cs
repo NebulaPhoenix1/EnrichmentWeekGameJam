@@ -15,7 +15,7 @@ public class GroundCheck : MonoBehaviour
         //If any are tagged ground, return true else false
         Vector2 currentPosition = transform.position;
         bool grounded = Physics2D.BoxCast((currentPosition + boxcastOffset), boxcastSize, 0, Vector2.down, 1, groundLayer);
-        Debug.Log(grounded);
+        //Debug.Log(grounded);
         return grounded;
     }
 

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DeathPlane : MonoBehaviour
 {
@@ -12,7 +11,7 @@ public class DeathPlane : MonoBehaviour
         //Move death plane to match player's X position
         float newX = playerTransform.position.x;
         transform.position = new Vector2(newX, transform.position.y);  
-        deathHandle = FindFirstObjectByType<DeathHandle>();       
+        deathHandle = FindFirstObjectByType<DeathHandle>();
     }
 
     //Send player to main menu when they touch death plane
