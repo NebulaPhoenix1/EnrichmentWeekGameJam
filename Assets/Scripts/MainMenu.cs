@@ -13,7 +13,8 @@ public class MainMenu : MonoBehaviour
     {
         previous = FindFirstObjectByType<PreviousScoreHolder>();
         SetHighScoreText();
-        SetPreviousScoreText();
+        if(previous) {SetPreviousScoreText();}
+        else {Debug.Log("PreviousScoreHolder not found :(");}
     }
 
     public void StartButton()

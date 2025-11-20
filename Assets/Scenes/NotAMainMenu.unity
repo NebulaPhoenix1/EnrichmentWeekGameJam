@@ -507,7 +507,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Previous:'
+  m_text: 'Previous: 0m'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4480e15d2fa674d56b64f28eb0fea5e9, type: 2}
   m_sharedMaterial: {fileID: 3920105245588942985, guid: 4480e15d2fa674d56b64f28eb0fea5e9, type: 2}
@@ -1249,7 +1249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'High Score:'
+  m_text: 'High Score: 0m'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4480e15d2fa674d56b64f28eb0fea5e9, type: 2}
   m_sharedMaterial: {fileID: 3920105245588942985, guid: 4480e15d2fa674d56b64f28eb0fea5e9, type: 2}
